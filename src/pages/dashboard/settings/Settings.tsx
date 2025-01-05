@@ -1,11 +1,11 @@
 import React from 'react'
 
-function SideMenu() {
+function Settings() {
   return (
     <div>
-      Sidemenu
+      Settings
     </div>
   )
 }
 
-export default SideMenu
+export default Settings

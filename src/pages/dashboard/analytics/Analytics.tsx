@@ -1,11 +1,11 @@
 import React from 'react'
 
-function SideMenu() {
+function Analytics() {
   return (
     <div>
-      Sidemenu
+      Analytics
     </div>
   )
 }
 
-export default SideMenu
+export default Analytics
