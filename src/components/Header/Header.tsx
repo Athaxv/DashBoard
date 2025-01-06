@@ -13,11 +13,17 @@ import Button from '@mui/material/Button';
 import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import AdbIcon from '@mui/icons-material/Adb';
+// import ThemeToggleButton from '../ThemeToggleButton';
+import { useState } from 'react';
+import { createTheme, FormControl, FormControlLabel, FormLabel, Radio, RadioGroup, ThemeProvider } from '@mui/material';
 
 const pages = ['Products', 'Pricing', 'Blog'];
-const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
+// const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
+
 
 function Header() {
+
+  const [mode, setMode] = useState<"light" | "dark">("light");
   const { data: session } = useSession();
   const userProfile = session?.user?.image as string
   const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(null);
@@ -37,6 +43,12 @@ function Header() {
   const handleCloseUserMenu = () => {
     setAnchorElUser(null);
   };
+
+  // const theme = createTheme({
+  //     palette: {
+  //       mode: mode,
+  //     },
+  //   });
 
   return (
     <AppBar position="static">
@@ -95,6 +107,22 @@ function Header() {
               ))}
             </Menu>
           </Box>
+          <FormControl>
+            <FormLabel id="demo-theme-toggle">Theme</FormLabel>
+            <RadioGroup
+              aria-labelledby="demo-theme-toggle"
+              name="theme-toggle"
+              row
+              value={mode}
+              onChange={(event) =>
+                setMode(event.target.value as "light" | "dark")
+              }
+            >
+              <FormControlLabel value="light" control={<Radio />} label="Light" />
+              <FormControlLabel value="dark" control={<Radio />} label="Dark" />
+            </RadioGroup>
+          </FormControl>
+          
           <AdbIcon sx={{ display: { xs: 'flex', md: 'none' }, mr: 1 }} />
           <Typography
             variant="h5"
