@@ -1,6 +1,6 @@
 // import Image from "next/image";
 // import { Geist, Geist_Mono } from "next/font/google";
-import Header from "@/components/Header";
+// import Header from "@/components/Header";
 import SideMenu from "@/components/SideMenu";
 import Login from "@/components/Login";
 import Dashboard from "./dashboard/Dashboard";
@@ -23,7 +23,7 @@ export default function Home() {
     <div
     >
       <main className={scss.main}>
-       <Header/>
+       {/* <Header/> */}
        {
         session && (
           <>

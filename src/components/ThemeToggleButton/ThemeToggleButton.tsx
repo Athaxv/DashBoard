@@ -1,43 +1,29 @@
-import { Box,  FormControl, FormControlLabel, FormLabel, Radio, RadioGroup } from '@mui/material'
-import React from 'react'
+import IconButton from "@mui/material/IconButton";
+import Brightness7Icon from "@mui/icons-material/Brightness7";
+import Brightness4Icon from "@mui/icons-material/Brightness4";
+import React from "react";
+import {useTheme} from "@mui/system";
+import Typography from "@mui/material/Typography";
+import {useMediaQuery} from "@mui/material";
 
-interface ThemeToggleButtonProps {
-    mode: "light" | "dark";
-    setMode: (mode: "light" | "dark") => void;
-  }
-
-const ThemeToggleButton: React.FC<ThemeToggleButtonProps> = ({ mode, setMode }) => {
-  return (
-    <Box
-          sx={{
-            display: "flex",
-            width: "100%",
-            alignItems: "center",
-            justifyContent: "end",
-            // bgcolor: "background.default",
-            // color: "text.",
-            borderRadius: 1,
-            p: 1,
-            minHeight: "56px",
-          }}
-        >
-          <FormControl>
-            <FormLabel id="demo-theme-toggle">Theme</FormLabel>
-            <RadioGroup
-              aria-labelledby="demo-theme-toggle"
-              name="theme-toggle"
-              row
-              value={mode}
-              onChange={(event) =>
-                setMode(event.target.value as "light" | "dark")
-              }
-            >
-              <FormControlLabel value="light" control={<Radio />} label="Light" />
-              <FormControlLabel value="dark" control={<Radio />} label="Dark" />
-            </RadioGroup>
-          </FormControl>
-        </Box>
-  )
+export type ThemeToggleButtonProps = {
+    ColorModeContext: React.Context<{ toggleColorMode: () => void; }>,
 }
 
-export default ThemeToggleButton
+const ThemeToggleButton = (props: ThemeToggleButtonProps) => {
+    const mobileCheck = useMediaQuery('(min-width: 500px)');
+    const {    ColorModeContext = React.createContext({ toggleColorMode: () => {} })} = props;
+    const theme = useTheme();
+    const colorMode = React.useContext(ColorModeContext);
+    return (
+        <>
+            {mobileCheck && (
+                <Typography>{theme.palette.mode}</Typography>)
+            }
+            <IconButton sx={{mr: 2}} title={theme.palette.mode + ' mode'} aria-label={theme.palette.mode + ' mode button'} onClick={colorMode.toggleColorMode} color="inherit">
+                {theme.palette.mode === 'dark' ? <Brightness7Icon/> : <Brightness4Icon/>}
+            </IconButton>
+        </>)
+}
+
+export default ThemeToggleButton;
